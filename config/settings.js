@@ -1,5 +1,5 @@
 settings = {
-  connectionString: "mongodb://gv_user:Orange97@ds059215.mlab.com:59215/swearjar",
+  connectionString: "mongodb://sj_user:Orange97@ds157667.mlab.com:57667/swearjar",
   testDB: "mongodb://localhost:27017/swearjar"
 }
 

@@ -43,6 +43,18 @@ router.post('/', function(req, res, next) {
   });
 });
 
+/**
+ * @api {post} /api/users/blacklist Blacklist a website
+ * @apiName PostBlacklist
+ * @apiGroup User
+ * @apiDescription This path adds a blacklisted site to a users profile
+ * @apiParam {String} userid
+ * @apiParam {String} site
+ * @apiSuccessExample Success-Response
+ * {
+ *   "success": true
+ * }
+*/
 router.post('/blacklist', function(req, res, next) {
   if (req.body.userid === undefined)
     return next({
@@ -75,7 +87,18 @@ router.post('/blacklist', function(req, res, next) {
   });
 });
 
-
+/**
+ * @api {post} /api/users/addpage Add a visited page
+ * @apiName PostAddpage
+ * @apiGroup User
+ * @apiDescription This path adds a page to user browsing history
+ * @apiParam {String} userid
+ * @apiParam {String} site
+ * @apiSuccessExample Success-Response
+ * {
+ *   "success": true
+ * }
+*/
 router.post('/addpage', function(req, res, next) {
   if (req.body.userid === undefined)
     return next({
