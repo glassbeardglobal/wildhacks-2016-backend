@@ -58,6 +58,7 @@ if (app.get('env') === 'development') {
       message: err.message,
       error: err
     });*/
+    console.log(err);
     res.json({
       success: false,
       message: err.message,
@@ -70,6 +71,7 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
+  console.log(err);
   res.json({
       success: false,
       message: err.message
