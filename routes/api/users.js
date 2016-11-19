@@ -148,6 +148,60 @@ router.post('/addpage', function(req, res, next) {
 });
 
 /**
+ * @api {post} /api/users/insertpage Insert a visited page
+ * @apiName PostInsertpage
+ * @apiGroup User
+ * @apiDescription This path inserts a page to user browsing history allowing a date
+ * @apiParam {String} userid
+ * @apiParam {String} site
+ * @apiParam {Date} startTime
+ * @apiSuccessExample Success-Response
+ * {
+ *   "success": true
+ * }
+*/
+router.post('/insertpage', function(req, res, next) {
+  if (req.body.userid === undefined)
+    return next({
+      message: "Must supply userid"
+    });
+
+  if (req.body.site === undefined)
+    return next({
+      message: "Must supply site"
+    });
+
+  User.findById(req.body.userid, function(err, doc) {
+    if (err)
+      return next(err);
+    if (doc === undefined)
+      return next({
+        status: 400,
+        message: "User not found"
+      });
+
+    var bl = false;
+    var site = utils.encodeDot(req.body.site);
+    if (doc.blacklisted[site] !== undefined && doc.blacklisted[site])
+      bl = true;
+
+    doc.browsingHistory.push({
+      websiteName: req.body.site,
+      blacklisted: bl,
+      startTime: req.body.time
+    });
+
+    doc.save(function(err) {
+      if (err)
+        return next(err);
+      res.json({
+        success: true
+      });
+    });
+  });
+});
+
+/**
  * @api {post} /api/users/authenticate Authenticate User
  * @apiName PostAuthenticate
  * @apiGroup User
@@ -178,21 +232,13 @@ router.post('/authenticate', function(req, res, next) {
 
     if (!doc.twoFactorEnabled)
       res.json({
-        "success": true,
-        "loggedIn": true,
-        "twoFactor": false
+        success: true,
+        loggedIn: true,
+        user: doc
       });
     else {
-      doc.twoFactorCode = utils.gen2fKey;
-      doc.twoFactorExpire = util.addMinutes(15);
-      doc.save(function(err) {
-        if (err)
-          return next(err);
-        res.json({
-          "success": true,
-          "loggedIn": false,
-          "twoFactor": true,
-        });
+      return next({
+        message: "User must use two factor authentication"
       });
     }
   });
@@ -208,7 +254,37 @@ router.post('/authenticate', function(req, res, next) {
  * @apiSuccessExample Success-Response
  * {
  *   "success": true,
- *   "user": {...}
+ *   "user": {
+ *     "_id": "583003f9284d9222bf802777",
+ *     "updatedAt": "2016-11-19T14:05:27.455Z",
+ *     "createdAt": "2016-11-19T07:49:13.871Z",
+ *     "name": "Radue Bhangra",
+ *     "email": "rbhang3@gmail.com",
+ *     "password": "foobar",
+ *     "__v": 2,
+ *     "browsingHistory": [
+ *       {
+ *         "websiteName": "google.com",
+ *         "blacklisted": false,
+ *         "startTime": "2016-11-19T14:04:55.957Z",
+ *         "_id": "58305c07fb3d1c3f58d68ba2"
+ *       },
+ *       {
+ *         "websiteName": "reddit.com",
+ *         "blacklisted": true,
+ *         "startTime": "2016-11-19T14:05:27.453Z",
+ *         "_id": "58305c27fb3d1c3f58d68ba3"
+ *       }
+ *     ],
+ *     "blacklisted": {
+ *       "reddit": true,
+ *       "bms": true,
+ *       "reddit%2Ecom": true
+ *     },
+ *     "twoFactorExpire": "2016-11-19T13:32:46.029Z",
+ *     "twoFactorCode": "",
+ *     "twoFactorEnabled": false
+ *   }
  * }
 */
 

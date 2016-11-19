@@ -14,8 +14,11 @@ var UserSchema = new mongoose.Schema({
   twoFactorEnabled: { type: Boolean, default: false },
   twoFactorCode: { type: String, default: "" },
   twoFactorExpire: { type: Date, default: new Date() },
+  deviceToken: { type: String },
   blacklisted: { type: Object, default: {}},
-  browsingHistory: [siteDataSchema]
+  browsingHistory: [siteDataSchema],
+  socketID: { type: String },
+  stripeToken: { type: String}
 },{
   minimize: false,
   timestamps: true

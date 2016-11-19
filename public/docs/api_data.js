@@ -20,6 +20,46 @@ define({ "api": [
     "groupTitle": "Index"
   },
   {
+    "type": "post",
+    "url": "/api/users/registertoken",
+    "title": "Register a device token",
+    "name": "PostRegisterToken",
+    "group": "Push",
+    "description": "<p>This path registers a token for a given user</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "userid",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "deviceToken",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response",
+          "content": "{\n  \"success\": true\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./routes/api/push.js",
+    "groupTitle": "Push"
+  },
+  {
     "type": "delete",
     "url": "/api/users/:id",
     "title": "Delete Users by ID",
@@ -84,7 +124,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response",
-          "content": "{\n  \"success\": true,\n  \"user\": {...}\n}",
+          "content": "{\n  \"success\": true,\n  \"user\": {\n    \"_id\": \"583003f9284d9222bf802777\",\n    \"updatedAt\": \"2016-11-19T14:05:27.455Z\",\n    \"createdAt\": \"2016-11-19T07:49:13.871Z\",\n    \"name\": \"Radue Bhangra\",\n    \"email\": \"rbhang3@gmail.com\",\n    \"password\": \"foobar\",\n    \"__v\": 2,\n    \"browsingHistory\": [\n      {\n        \"websiteName\": \"google.com\",\n        \"blacklisted\": false,\n        \"startTime\": \"2016-11-19T14:04:55.957Z\",\n        \"_id\": \"58305c07fb3d1c3f58d68ba2\"\n      },\n      {\n        \"websiteName\": \"reddit.com\",\n        \"blacklisted\": true,\n        \"startTime\": \"2016-11-19T14:05:27.453Z\",\n        \"_id\": \"58305c27fb3d1c3f58d68ba3\"\n      }\n    ],\n    \"blacklisted\": {\n      \"reddit\": true,\n      \"bms\": true,\n      \"reddit%2Ecom\": true\n    },\n    \"twoFactorExpire\": \"2016-11-19T13:32:46.029Z\",\n    \"twoFactorCode\": \"\",\n    \"twoFactorEnabled\": false\n  }\n}",
           "type": "json"
         }
       ]
@@ -195,6 +235,53 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "site",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response",
+          "content": "{\n  \"success\": true\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./routes/api/users.js",
+    "groupTitle": "User"
+  },
+  {
+    "type": "post",
+    "url": "/api/users/insertpage",
+    "title": "Insert a visited page",
+    "name": "PostInsertpage",
+    "group": "User",
+    "description": "<p>This path inserts a page to user browsing history allowing a date</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "userid",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "site",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "Date",
+            "optional": false,
+            "field": "startTime",
             "description": ""
           }
         ]

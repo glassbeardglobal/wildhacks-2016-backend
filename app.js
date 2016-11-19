@@ -4,11 +4,17 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var socket_io = require('socket.io');
 
 var routes = require('./routes/index');
 var api = require('./routes/api');
 
 var app = express();
+
+var io = socket_io();
+app.io = io;
+var sutil = require('./helpers/socket-util');
+sutil.initSocket(io);
 
 var mongoose = require('mongoose');
 var settings = require('./config/settings');
