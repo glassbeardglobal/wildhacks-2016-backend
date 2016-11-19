@@ -135,6 +135,46 @@
   },
   {
     "type": "post",
+    "url": "/api/users/authenticate",
+    "title": "Authenticate User",
+    "name": "PostAuthenticate",
+    "group": "User",
+    "description": "<p>This path authenticates a user</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "email",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "password",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response",
+          "content": "{\n  \"success\": true\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./routes/api/users.js",
+    "groupTitle": "User"
+  },
+  {
+    "type": "post",
     "url": "/api/users/blacklist",
     "title": "Blacklist a website",
     "name": "PostBlacklist",
@@ -180,6 +220,33 @@
     "name": "PostUsers",
     "group": "User",
     "description": "<p>This path creates a user from request body data</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "email",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "password",
+            "description": ""
+          }
+        ]
+      }
+    },
     "success": {
       "examples": [
         {

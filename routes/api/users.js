@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var router = express.Router();
 
 var User = require('../../models/User');
+var utils = require('../../helpers/utils');
 
 /**
  * @api {get} /api/users Get All Users
@@ -26,6 +27,9 @@ router.get('/', function(req, res, next) {
  * @apiName PostUsers
  * @apiGroup User
  * @apiDescription This path creates a user from request body data
+ * @apiParam {String} name
+ * @apiParam {String} email
+ * @apiParam {String} password
  * @apiSuccessExample Success-Response
  * {
  *   "success": true
@@ -140,6 +144,57 @@ router.post('/addpage', function(req, res, next) {
 });
 
 /**
+ * @api {post} /api/users/authenticate Authenticate User
+ * @apiName PostAuthenticate
+ * @apiGroup User
+ * @apiDescription This path authenticates a user
+ * @apiParam {String} email
+ * @apiParam {String} password
+ * @apiSuccessExample Success-Response
+ * {
+ *   "success": true
+ * }
+*/
+router.post('/authenticate', function(req, res, next) {
+  User.findOne({ email: email }, function(err, doc) {
+    if (err)
+      return next(err);
+    if (doc === undefined) {
+      return next({
+        status: 400,
+        message: "User does not exist"
+      });
+    }
+    if (doc.password !== password) {
+      return next({
+        status: 403,
+        message: "Authentication failed"
+      });
+    }
+
+    if (!doc.twoFactorEnabled)
+      res.json({
+        "success": true,
+        "loggedIn": true,
+        "twoFactor": false
+      });
+    else {
+      doc.twoFactorCode = utils.gen2fKey;
+      doc.twoFactorExpire = util.addMinutes(15);
+      doc.save(function(err) {
+        if (err)
+          return next(err);
+        res.json({
+          "success": true,
+          "loggedIn": false,
+          "twoFactor": true,
+        });
+      });
+    }
+  });
+});
+
+/**
  * @api {get} /api/users/:id Get Users by ID
  * @apiName GetUsersID
  * @apiGroup User
@@ -183,7 +238,7 @@ router.get('/:id', function(req, res, next) {
 router.delete('/:id', function(req, res, next) {
   User.remove({ _id: req.params.id }, function(err, doc) {
     if (err)
-      return next(err)
+      return next(err);
     res.json({
       "success": true
     });

@@ -12,6 +12,8 @@ var UserSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   twoFactorEnabled: { type: Boolean, default: false },
+  twoFactorCode: { type: String, default: "" },
+  twoFactorExpire: { type: Date, default: new Date() },
   blacklisted: { type: Object, default: {}},
   browsingHistory: [siteDataSchema]
 },{
