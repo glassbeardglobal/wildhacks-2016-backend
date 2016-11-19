@@ -11,7 +11,12 @@ function addMinutes(minutes) {
   return new Date(date.getTime() + minutes*60000);
 }
 
+function encodeDot(s) {
+  return s.split('.').join('%2E');
+}
+
 module.exports = {
   addMinutes: addMinutes,
+  encodeDot: encodeDot,
   gen2fKey: gen2fKey
 }

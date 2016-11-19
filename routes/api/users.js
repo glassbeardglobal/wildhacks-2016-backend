@@ -79,13 +79,16 @@ router.post('/blacklist', function(req, res, next) {
         message: "User not found"
       });
 
-    doc.blacklisted[req.body.site] = true;
-    doc.markModified('blacklisted.' + req.body.site);
+    var s = utils.encodeDot(req.body.site);
+    doc.blacklisted[s] = true;
+    //doc.markModified('blacklisted.' + req.body.site);
+    doc.markModified('blacklisted');
     doc.save(function(err, up) {
       if (err)
         return next(err);
       res.json({
-        success: true
+        success: true,
+        up: up
       });
     });
   });
@@ -123,12 +126,13 @@ router.post('/addpage', function(req, res, next) {
         message: "User not found"
       });
 
-    bl = false;
+    var bl = false;
+    var site = utils.encodeDot(req.body.site);
     if (doc.blacklisted[site] !== undefined && doc.blacklisted[site])
       bl = true;
 
     doc.browsingHistory.push({
-      websiteName: site,
+      websiteName: req.body.site,
       blacklisted: bl,
       startTime: new Date()
     });
