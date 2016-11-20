@@ -1,23 +1,24 @@
 var express = require('express');
 var apn = require('apn');
+var path = require('path')
 var router = express.Router();
 
 var User = require('../../models/User');
 var utils = require('../../helpers/utils');
 var su = require('../../helpers/socket-util');
 
-/*
+
 var options = {
   token: {
-    key: "../../config/SwearJarPushCer.pem",
-    keyId: "",
-    teamId: ""
+    key: path.join(__dirname, '..', '..', 'config', 'APNsAuthKey_MRU8H8R6H5.p8'),
+    keyId: "MRU8H8R6H5",
+    teamId: "68LYEWDX9F"
   },
   production: true
 };
 
 var apnProvider = new apn.Provider(options);
-*/
+
 router.post('/test', function(req, res, next) {
   if (req.body.userid === undefined)
     return next({
@@ -25,10 +26,34 @@ router.post('/test', function(req, res, next) {
       message: "Must supply user email"
     });
 
-})
+  User.findById(req.body.userid, function(err, doc) {
+    if (err)
+      return next(err);
+    if (doc == undefined)
+      return next({
+        status: 400,
+        message: "User not found"
+      });
+
+    var note = new apn.Notification();
+
+    note.expiry = Math.floor(Date.now() / 1000) + 3600; // Expires 1 hour from now.
+    note.badge = 3;
+    note.sound = "ping.aiff";
+    note.alert = "\uD83D\uDCE7 \u2709 You have a new message";
+    note.payload = {'messageFrom': 'John Appleseed'};
+    note.topic = "com.rahulsurti.Swear-Jar-Pro";
+
+    apnProvider.send(note, doc.deviceToken).then(function(result) {
+      res.json({
+        success: true
+      });
+    });
+  });
+});
 
 /**
- * @api {post} /api/users/registertoken Register a device token
+ * @api {post} /api/push/registertoken Register a device token
  * @apiName PostRegisterToken
  * @apiGroup Push
  * @apiDescription This path registers a token for a given user
