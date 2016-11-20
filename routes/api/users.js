@@ -5,6 +5,7 @@ var router = express.Router();
 
 var User = require('../../models/User');
 var utils = require('../../helpers/utils');
+var su = require('../../helpers/socket-util');
 
 /**
  * @api {get} /api/users Get All Users
@@ -189,11 +190,13 @@ router.post('/addpage', function(req, res, next) {
       doc.charges += 1;
 
       if (doc.charges % 15 == 0) {
-        util.chargeAccount(doc.stripeID, doc.runningCost);
+        utils.chargeAccount(doc.stripeID, doc.runningCost);
         doc.donated += doc.runningCost;
         doc.runningCost = 0;
         doc.charges = 0;
       }
+
+      su.getIO().emit('increment price');
     }
 
     doc.save(function(err) {

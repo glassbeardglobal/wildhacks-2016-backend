@@ -8,9 +8,10 @@ $(document).ready(function() {
     $('#messages').append($('<li>').text("Authenticated"));
   });
 
-  socket.on('push to web', function() {
-    window.location.href = '/demo';
+  socket.on('push to web', function(valid) {
+    if (valid)
+      window.location.href = '/demo';
+    else
+      window.location.href = '/landing';
   });
-
-  console.log(Cookies.get('userid'));
 });

@@ -13,12 +13,12 @@ r = requests.post(host + '/api/users', data=payload)
 sites = ['reddit.com', 'stackoverflow.com', 'facebook.com', 'google.com', 'mongoosejs.com', 'yahoo.com', 'messenger.com',
   'github.com', 'mlh.io', 'leetcode.com']
 
-uid = '583012dfba5a402a7db46495'
+uid = '583003f9284d9222bf802777'
 
 cur = datetime.today()
 
-for i in range(100):
-  elapsed = random.randint(5, 1200)
+for i in range(50):
+  elapsed = random.randint(5, 1700)
   inc = timedelta(seconds=elapsed)
   payload = { 'userid': uid, 'site': random.choice(sites), 'time': cur }
   requests.post(host + '/api/users/insertpage', data=payload)
