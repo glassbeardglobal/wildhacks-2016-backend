@@ -188,7 +188,7 @@ router.post('/addpage', function(req, res, next) {
       doc.runningCost += doc.costPerPage;
       doc.charges += 1;
 
-      if (charges % 15 == 0) {
+      if (doc.charges % 15 == 0) {
         util.chargeAccount(doc.stripeID, doc.runningCost);
         doc.donated += doc.runningCost;
         doc.runningCost = 0;
