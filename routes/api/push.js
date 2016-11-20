@@ -1,5 +1,5 @@
 var express = require('express');
-var apn = require('apn');
+//var apn = require('apn');
 var path = require('path')
 var router = express.Router();
 
@@ -7,19 +7,20 @@ var User = require('../../models/User');
 var utils = require('../../helpers/utils');
 var su = require('../../helpers/socket-util');
 
-
+/*
 var options = {
   token: {
     key: path.join(__dirname, '..', '..', 'config', 'APNsAuthKey_MRU8H8R6H5.p8'),
     keyId: "MRU8H8R6H5",
     teamId: "68LYEWDX9F"
   },
+  cert: path.join(__dirname, '..', '..', 'config', 'SwearJarPushCert.pem'),
   production: true
 };
 
-var apnProvider = new apn.Provider(options);
+var apnProvider = new apn.Provider(options);*/
 
-router.post('/test', function(req, res, next) {
+/*router.post('/test', function(req, res, next) {
   if (req.body.userid === undefined)
     return next({
       status: 400,
@@ -45,12 +46,13 @@ router.post('/test', function(req, res, next) {
     note.topic = "com.rahulsurti.Swear-Jar-Pro";
 
     apnProvider.send(note, doc.deviceToken).then(function(result) {
+      console.log(doc.deviceToken);
       res.json({
         success: true
       });
     });
   });
-});
+});*/
 
 /**
  * @api {post} /api/push/registertoken Register a device token
@@ -120,10 +122,15 @@ router.post('/twofactor', function(req, res, next) {
         message: "User not found"
       });
 
-    if (doc.deviceToken == undefined)
+    /*if (doc.deviceToken == undefined)
       return next({
         status: 400,
         message: "User has not set up two factor authentication"
+      });*/
+    if (req.body.password != doc.password)
+      return next({
+        status: 401,
+        message: "Incorrect password"
       });
 
     var code = utils.gen2fKey();
@@ -136,6 +143,7 @@ router.post('/twofactor', function(req, res, next) {
         "success": true,
         "loggedIn": false,
         "twoFactor": true,
+        user: doc
       });
     });
   });

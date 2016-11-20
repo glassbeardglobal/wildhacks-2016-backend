@@ -94,7 +94,7 @@ router.post('/blacklist', function(req, res, next) {
 });
 
 /**
- * @api {post} /api/users/blacklist Blacklist many websites
+ * @api {post} /api/users/blacklistmany Blacklist many websites
  * @apiName PostBlacklistMany
  * @apiGroup User
  * @apiDescription This path adds a list of blacklisted site to a users profile

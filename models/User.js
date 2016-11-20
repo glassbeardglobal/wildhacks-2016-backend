@@ -22,7 +22,8 @@ var UserSchema = new mongoose.Schema({
   runningCost: { type: Number, default: 0 },
   donated: { type: Number, default: 0 },
   charges: { type: Number, default: 0 },
-  costPerPage: { type: Number, default: 60 }
+  costPerPage: { type: Number, default: 60 },
+  socketMobile: { type: String, default: "" }
 },{
   minimize: false,
   timestamps: true

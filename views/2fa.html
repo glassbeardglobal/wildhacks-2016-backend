@@ -15,19 +15,31 @@
         <link rel="stylesheet" href="/css/bootstrap.min.css">
         <link rel="stylesheet" href="/css/font-awesome.min.css">
         <link rel="stylesheet" href="/css/vis.css">
+        <link rel="stylesheet" href="/css/2fa.css">
         <script src="/js/vendor/modernizr-2.8.3.min.js"></script>
     </head>
     <body>
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
+        <div class="f2a-main">
+            <div class="title">
+                <h1>Please authenticate using Touch ID</h1>
+            </div>
+            <div class="loader">
+                <img align=center class="ring-loader" src="img/ring.svg">
+            </div>
+        </div>
+
         <ul id="messages"></ul>
 
         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
         <script src="/js/plugins.js"></script>
         <script src="/js/main.js"></script>
+        <script src="/js/js.cookie.js"></script>
         <script src="https://d3js.org/d3.v4.min.js"></script>
         <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+        <script src="/js/2fa.js"></script>
     </body>
 </html>

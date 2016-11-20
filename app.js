@@ -16,6 +16,8 @@ app.io = io;
 var sutil = require('./helpers/socket-util');
 sutil.initSocket(io);
 
+var sh = require('./helpers/socket-handlers');
+
 var mongoose = require('mongoose');
 var settings = require('./config/settings');
 

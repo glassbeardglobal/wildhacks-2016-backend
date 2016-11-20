@@ -34,14 +34,12 @@ function submitPageForm() {
     body[d.name] = d.value;
   });
 
-  console.log(arr);
-  console.log(body);
-
   $.ajax({
     method: "POST",
-    url: "/api/users/authenticate/",
+    url: "/api/push/twofactor/",
     data: body
-  }).done(function() {
+  }).done(function(d) {
+    Cookies.set('userid', d.user._id);
     window.joined = true;
     window.setTimeout(function() {
       loader.children('.ring-loader').addClass('hidden');
