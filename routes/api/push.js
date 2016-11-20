@@ -6,19 +6,40 @@ var User = require('../../models/User');
 var utils = require('../../helpers/utils');
 var su = require('../../helpers/socket-util');
 
+/*
+var options = {
+  token: {
+    key: "../../config/SwearJarPushCer.pem",
+    keyId: "",
+    teamId: ""
+  },
+  production: true
+};
+
+var apnProvider = new apn.Provider(options);
+*/
+router.post('/test', function(req, res, next) {
+  if (req.body.userid === undefined)
+    return next({
+      status: 400,
+      message: "Must supply user email"
+    });
+
+})
+
 /**
  * @api {post} /api/users/registertoken Register a device token
  * @apiName PostRegisterToken
  * @apiGroup Push
  * @apiDescription This path registers a token for a given user
- * @apiParam {String} userid
+ * @apiParam {String} email
  * @apiParam {String} deviceToken
  * @apiSuccessExample Success-Response
  * {
  *   "success": true
  * }
 */
-router.post('registertoken', function(req, res, next) {
+router.post('/registertoken', function(req, res, next) {
   if (req.body.email === undefined)
     return next({
       status: 400,
@@ -41,6 +62,7 @@ router.post('registertoken', function(req, res, next) {
       });
 
     doc.deviceToken = req.body.deviceToken;
+    doc.markModified('deviceToken');
     doc.save(function(err) {
       if (err)
         return next(err);
@@ -51,7 +73,7 @@ router.post('registertoken', function(req, res, next) {
   });
 });
 
-router.post('twofactor', function(req, res, next) {
+router.post('/twofactor', function(req, res, next) {
   if (req.body.email === undefined)
     return next({
       status: 400,
