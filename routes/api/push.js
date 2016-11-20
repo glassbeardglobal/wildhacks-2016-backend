@@ -82,7 +82,7 @@ router.post('/registertoken', function(req, res, next) {
   User.findOne({ email: req.body.email }, function(err, doc) {
     if (err)
       return next(err);
-    if (doc === undefined)
+    if (doc == undefined)
       return next({
         status: 400,
         message: "User not found"
@@ -116,7 +116,7 @@ router.post('/twofactor', function(req, res, next) {
   User.findOne({ email: req.body.email }, function(err, doc) {
     if (err)
       return next(err);
-    if (doc === undefined)
+    if (doc == undefined)
       return next({
         status: 400,
         message: "User not found"
@@ -164,7 +164,7 @@ router.get('/recieve2fa', function(req, res, next) {
   User.findById(req.query.userid, function(err, doc) {
     if (err)
       return next(err);
-    if (doc === undefined)
+    if (doc == undefined)
       return next({
         status: 400,
         message: "User not found"

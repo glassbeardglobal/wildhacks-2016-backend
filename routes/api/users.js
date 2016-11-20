@@ -233,7 +233,7 @@ router.post('/insertpage', function(req, res, next) {
   User.findById(req.body.userid, function(err, doc) {
     if (err)
       return next(err);
-    if (doc === undefined)
+    if (doc == undefined)
       return next({
         status: 400,
         message: "User not found"
