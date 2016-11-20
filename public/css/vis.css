@@ -45,6 +45,7 @@ html, body {
 	position: fixed;
 	height: 50px;
 	width: 100%;
+	font-family: Roboto;
 }
 
 .navbar-default {
@@ -66,7 +67,7 @@ html, body {
 }
 
 .email {
-	color: #00abff;
+	color: #2ecc96;
 }
 
 
@@ -115,105 +116,56 @@ html, body {
 	position: absolute;
 	
 	width: 100%;
-	background: #00abff; /* For browsers that do not support gradients */
-	background: -webkit-linear-gradient(left top, #00becd, #00abff); /* For Safari 5.1 to 6.0 */
-	background: -o-linear-gradient(bottom right, #00becd, #00abff); /* For Opera 11.1 to 12.0 */
+	background-color: #f0f0f0;
+	/*background: #00abff;
+	background: -webkit-linear-gradient(left top, #00becd, #00abff);
+	background: -o-linear-gradient(bottom right, #00becd, #00abff);
 	background: -moz-linear-gradient(bottom right, #00becd, #00abff);
-	background: linear-gradient(to bottom right, #33ae9d, #2291e5);
+	background: linear-gradient(to bottom right, #33ae9d, #2291e5);*/
 }
 
 .main-container {
 	margin-top: 75px;
 	margin-left: 75px;
 	margin-right: 25px;
+	background-color: #2ecc96;
+	height: 500px;
 }
 
-.info-box {
-	margin-top: 25px;
-	padding: 10px;
-	border-radius: 10px;
-	background-color: rgba(255, 255, 255, 0.25);
-	box-shadow: 0px 0px 7px #777;
+.top-wrapper {
+	background-color: #2ecc96;
+	height: 300px;
 }
 
-.info-box .left {
-	float: left;
+.price-tick-wrapper {
+	position: relative;
+	top: 68px;
+	margin: auto;
 }
 
-.info-box .right {
-	margin-right: 40px;
-	font-size: 40px;
+#price-ticker {
+	text-align: center;
 	color: white;
-	float: right;
+	font-family: Roboto;
+	font-weight: 300;
+	font-size: 36px;
 }
 
-.info-box h3 {
-	font-family: Source Sans Pro;
-	font-weight: 200;
-	color: white;
-	margin-top: 3px;
-	margin-bottom: 3px;
-	margin-left: 30px;
-	text-shadow: 0px 0px 8px #222;
+#sub-price-ticker {
+	text-align: center;
+	color: black;
+	font-family: Roboto;
+	font-weight: 300;
 }
 
-svg {
-	margin: 30px 0px;
-	background-color: rgba(255, 255, 255, 0.25);
-	border-radius: 10px;
-	box-shadow: 0px 0px 7px #777;
-}
-
-.ll {
-	margin-top: 0px;
-}
-
-/*
-  ==========================
-  Map display
-  ==========================
-*/
-#mapid {
-	height: 420px;
-}
-
-
-/*
-  ==========================
-  D3 display
-  ==========================
-*/
-
-.bar {
-  fill: #125198;
-}
-
-.bar:hover {
-  fill: brown;
-}
-
-.axis--x path {
-	fill: white;
-  display: none;
-}
-
-.axis--x .show path {
-	fill: white;
-  display: block;
-}
-
-.arc text {
-  font: 10px sans-serif;
-  text-anchor: middle;
-  fill: white;
-}
-
-.arc path {
-  stroke: #fff;
-}
-
-.line {
-  fill: none;
-  stroke: white;
-  stroke-width: 1.5px;
+#main-line {
+	width: 88vw;
+	height: 400px;
+	background-color: white;
+	z-index: 100;
+	margin: auto;
+	position: relative;
+	top: -150px;
+	left: 7.5vw;
+	box-shadow: 3px 3px 14px #333;
 }

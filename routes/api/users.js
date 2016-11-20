@@ -73,7 +73,7 @@ router.post('/blacklist', function(req, res, next) {
   User.findById(req.body.userid, function(err, doc) {
     if (err)
       return next(err);
-    if (doc === undefined)
+    if (doc == undefined)
       return next({
         status: 400,
         message: "User not found"
@@ -87,8 +87,55 @@ router.post('/blacklist', function(req, res, next) {
       if (err)
         return next(err);
       res.json({
-        success: true,
-        up: up
+        success: true
+      });
+    });
+  });
+});
+
+/**
+ * @api {post} /api/users/blacklist Blacklist many websites
+ * @apiName PostBlacklistMany
+ * @apiGroup User
+ * @apiDescription This path adds a list of blacklisted site to a users profile
+ * @apiParam {String} userid
+ * @apiParam {[String]} sites
+ * @apiSuccessExample Success-Response
+ * {
+ *   "success": true
+ * }
+*/
+router.post('/blacklistmany', function(req, res, next) {
+  if (req.body.userid === undefined)
+    return next({
+      message: "Must supply userid"
+    });
+
+  if (req.body.sites === undefined)
+    return next({
+      message: "Must supply sites"
+    });
+
+  User.findById(req.body.userid, function(err, doc) {
+    if (err)
+      return next(err);
+    if (doc == undefined)
+      return next({
+        status: 400,
+        message: "User not found"
+      });
+
+    req.body.sites.forEach(function(as) {
+      var s = utils.encodeDot(as);
+      doc.blacklisted[s] = true;
+    });
+    //doc.markModified('blacklisted.' + req.body.site);
+    doc.markModified('blacklisted');
+    doc.save(function(err, up) {
+      if (err)
+        return next(err);
+      res.json({
+        success: true
       });
     });
   });
@@ -120,7 +167,7 @@ router.post('/addpage', function(req, res, next) {
   User.findById(req.body.userid, function(err, doc) {
     if (err)
       return next(err);
-    if (doc === undefined)
+    if (doc == undefined)
       return next({
         status: 400,
         message: "User not found"
@@ -136,6 +183,18 @@ router.post('/addpage', function(req, res, next) {
       blacklisted: bl,
       startTime: new Date()
     });
+
+    if (bl) {
+      doc.runningCost += doc.costPerPage;
+      doc.charges += 1;
+
+      if (charges % 15 == 0) {
+        util.chargeAccount(doc.stripeID, doc.runningCost);
+        doc.donated += doc.runningCost;
+        doc.runningCost = 0;
+        doc.charges = 0;
+      }
+    }
 
     doc.save(function(err) {
       if (err)
@@ -214,16 +273,16 @@ router.post('/insertpage', function(req, res, next) {
  * }
 */
 router.post('/authenticate', function(req, res, next) {
-  User.findOne({ email: email }, function(err, doc) {
+  User.findOne({ email: req.body.email }, function(err, doc) {
     if (err)
       return next(err);
-    if (doc === undefined) {
+    if (doc == undefined) {
       return next({
         status: 400,
         message: "User does not exist"
       });
     }
-    if (doc.password !== password) {
+    if (doc.password !== req.body.password) {
       return next({
         status: 403,
         message: "Authentication failed"
@@ -292,7 +351,7 @@ router.get('/:id', function(req, res, next) {
   User.findById(req.params.id, function(err, doc) {
     if (err)
       return next(err);
-    if (doc === undefined) {
+    if (doc == undefined) {
       err.status = 400;
       return next(err);
     }

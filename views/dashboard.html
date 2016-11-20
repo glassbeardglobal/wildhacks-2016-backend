@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>BarleyNet</title>
+        <title>Swear Jar</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -32,7 +32,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#">BarleyNet</a>
+              <a class="navbar-brand" href="#">Swear Jar</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -66,73 +66,18 @@
         </div>
 
         <div class="main">
-        <div class="main-container">
-            <div id="mapid"></div>
-            <div class="col-md-6">
-                <div class="info-box clearfix">
-                    <div class="left">
-                        <h3>Total Harvest</h3>
-                        <h3 id="tot-harvest">0</h3>
-                    </div>
-                    <div class="right">
-                        <i class="fa fa-truck" aria-hidden="true"></i>
-                    </div>
-                </div>
+        <!--<div class="main-container">
+            
+        </div>-->
+        <div class="top-wrapper">
+            <div class="price-tick-wrapper">
+                <h2 id="price-ticker">$0.00</h2>
+                <h5 id="sub-price-ticker">+$0.00</h5>
             </div>
+        </div>
 
-            <div class="col-md-6">
-                <div class="info-box clearfix">
-                    <div class="left">
-                        <h3>Average Yield Rate</h3>
-                        <h3 id="avg-yield">0</h3>
-                    </div>
-                    <div class="right">
-                        <i class="fa fa-globe" aria-hidden="true"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="info-box clearfix">
-                    <div class="left">
-                        <h3>Average Harvest</h3>
-                        <h3 id="avg-harvest">0</h3>
-                    </div>
-                    <div class="right">
-                        <i class="fa fa-leaf" aria-hidden="true"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="info-box clearfix">
-                    <div class="left">
-                        <h3>Maximum Harvest (For Single Field)</h3>
-                        <h3 id="max-harvest">0</h3>
-                    </div>
-                    <div class="right">
-                        <i class="fa fa-anchor" aria-hidden="true"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <svg id="affect-bars">
-                </svg>
-            </div>
-
-            <div class="col-md-6">
-                <svg id="pie">
-                </svg>
-            </div>
-
-            <div class="col-md-12">
-                <svg id="mline" class="ll"></svg>
-            </div>
-
-            <div class="col-md-12">
-                <svg id="mline-alt" class="ll"></svg>
-            </div>
+        <div class="svg-wrapper">
+            <svg id="main-line"></svg>
         </div>
         </div>
 

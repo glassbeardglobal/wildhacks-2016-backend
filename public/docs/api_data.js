@@ -1,5 +1,45 @@
 define({ "api": [
   {
+    "type": "post",
+    "url": "/api/billing",
+    "title": "Billing",
+    "name": "PostBilling",
+    "group": "Billing",
+    "description": "<p>This path allows a user to set their stripe token</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "userid",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "stripeToken",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response",
+          "content": "{\n  \"success\": true,\n  \"message\":\"API Root\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./routes/api/billing.js",
+    "groupTitle": "Billing"
+  },
+  {
     "type": "get",
     "url": "/api",
     "title": "Root",
@@ -235,6 +275,46 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "site",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response",
+          "content": "{\n  \"success\": true\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./routes/api/users.js",
+    "groupTitle": "User"
+  },
+  {
+    "type": "post",
+    "url": "/api/users/blacklist",
+    "title": "Blacklist many websites",
+    "name": "PostBlacklistMany",
+    "group": "User",
+    "description": "<p>This path adds a list of blacklisted site to a users profile</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "userid",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "[String]",
+            "optional": false,
+            "field": "sites",
             "description": ""
           }
         ]

@@ -1,3 +1,6 @@
+var settings = require('../config/settings');
+var stripe = require('stripe')(settings.stripeTest);
+
 function gen2fKey() {
   var res = [];
   for (var i = 0; i < 64; i++) {
@@ -15,8 +18,17 @@ function encodeDot(s) {
   return s.split('.').join('%2E');
 }
 
+function chargeAccount(customerID, amount) {
+  stripe.charges.create({
+    amount: amount,
+    currency: "usd",
+    customer: customerID
+  });
+}
+
 module.exports = {
   addMinutes: addMinutes,
   encodeDot: encodeDot,
-  gen2fKey: gen2fKey
+  gen2fKey: gen2fKey,
+  chargeAccount: chargeAccount
 }

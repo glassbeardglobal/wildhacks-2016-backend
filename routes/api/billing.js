@@ -3,6 +3,9 @@ var router = express.Router();
 
 var User = require('../../models/User');
 var utils = require('../../helpers/utils');
+var settings = require('../../config/settings');
+
+var stripe = require('stripe')(settings.stripeTest);
 
 /**
  * @api {post} /api/billing Billing
@@ -13,8 +16,7 @@ var utils = require('../../helpers/utils');
  * @apiParam {string} stripeToken
  * @apiSuccessExample Success-Response
  * {
- *   "success": true,
- *   "message":"API Root"
+ *   "success": true
  * }
 */
 router.post('/', function(req, res, next) {
@@ -29,17 +31,25 @@ router.post('/', function(req, res, next) {
       message: "Must supply stripeToken"
     });
 
-  User.findOneAndUpdate({ _id: req.body.userid }, { $set: { stripeToken: req.body.stripeToken }}, function(err, doc) {
-    if (err)
-      return next(err);
-    if (doc === undefined)
-      return next({
-        status: 400,
-        message: "User not found"
+  var token = req.body.stripeToken;
+  stripe.customers.create({
+    source: token,
+    description: "Customer"
+  }).then(function(customer) {
+    User.findOneAndUpdate({ _id: req.body.userid }, { $set: { stripeID: customer.id }}, function(err, doc) {
+      if (err)
+        return next(err);
+      if (doc === undefined)
+        return next({
+          status: 400,
+          message: "User not found"
+        });
+      res.json({
+        success: true
       });
-    res.json({
-      success: true
     });
+  }).catch(function(e) {
+    return next(e);
   });
 });
 

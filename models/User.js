@@ -18,7 +18,11 @@ var UserSchema = new mongoose.Schema({
   blacklisted: { type: Object, default: {}},
   browsingHistory: [siteDataSchema],
   socketID: { type: String },
-  stripeToken: { type: String}
+  stripeID: { type: String },
+  runningCost: { type: Number, default: 0 },
+  donated: { type: Number, default: 0 },
+  charges: { type: Number, default: 0 },
+  costPerPage: { type: Number, default: 60 }
 },{
   minimize: false,
   timestamps: true

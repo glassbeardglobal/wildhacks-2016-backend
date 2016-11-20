@@ -25,8 +25,82 @@
 
         <div class="center-frame">
             <h1 id="title">Swear Jar</h1>
-            <div id="signup" class="home-btn"><a>SIGN UP</a></div>
-            <div id="login" class="home-btn"><a>LOG IN</a></div>
+            <div id="signup-btn" class="home-btn"><a>SIGN UP</a></div>
+            <div id="login-btn" class="home-btn"><a>LOG IN</a></div>
+            <div class="overlay hidden"></div>
+        </div>
+
+        <div id="login-modal">
+            <div class="modal-content-cs">
+                <div class="modal-header">
+                    <button type="button" class="btn btn-default close-form" aria-label="Left Align">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </button>
+                    <h3>Login</h3>
+                </div>
+                <div class="modal-body">
+                    <form id="login-form" action="/api/users/authenticate" method="post" accept-charset="UTF-8">
+                        <div class="form-fields clearfix">
+                            <div class="form-item">
+                                <label>Email</label>
+                                <input type="text" name="email">
+                            </div>
+                            <div class="form-item">
+                                <label>Password</label>
+                                <input type="password" name="password">
+                            </div>
+                        </div>
+
+                        <a id="login-submit-form" class="btn btn-primary">SUBMIT</a>
+                    </form>
+
+                    <div class="form-loader hidden">
+                        <img class="ring-loader" src="img/ring.svg">
+                        <h2 id="login-modal-done" class="hidden">Redirecting to 2FA</h2>
+                        <h2 id="login-modal-fail" class="hidden">An error has occured</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="signup-modal">
+            <div class="modal-content-cs">
+                <div class="modal-header">
+                    <button type="button" class="btn btn-default close-form" aria-label="Left Align">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </button>
+                    <h3>Sign Up</h3>
+                </div>
+                <div class="modal-body">
+                    <form id="signup-form" action="/api/users/authenticate" method="post" accept-charset="UTF-8">
+                        <div class="form-fields clearfix">
+                            <div class="form-item">
+                                <label>Name</label>
+                                <input type="text" name="name">
+                            </div>
+                            <div class="form-item">
+                                <label>Email</label>
+                                <input type="text" name="email">
+                            </div>
+                            <div class="form-item">
+                                <label>Password</label>
+                                <input type="password" name="password">
+                            </div>
+                        </div>
+
+                        <a id="signup-submit-form" class="btn btn-primary">SUBMIT</a>
+                    </form>
+
+                    <div class="form-loader hidden">
+                        <img class="ring-loader" src="img/ring.svg">
+                        <div id="signup-modal-done" class="hidden">
+                            <h2>Thanks for registering!</h2>
+                            <h4>Please authenticate in app</h4>
+                        </div>
+                        <h2 id="signup-modal-fail" class="hidden">An error has occured</h2>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
@@ -34,6 +108,7 @@
         <script src="/js/plugins.js"></script>
         <script src="/js/main.js"></script>
         <script src="https://d3js.org/d3.v4.min.js"></script>
+        <script src="/js/landing.js"></script>
         <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
     </body>
 </html>
