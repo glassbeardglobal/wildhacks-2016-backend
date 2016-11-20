@@ -4,7 +4,8 @@ var path = require('path')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.redirect('/landing');
+  //res.render('index', { title: 'Express' });
 });
 
 router.get('/landing', function(req, res, next) {

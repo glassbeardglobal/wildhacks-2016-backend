@@ -1,6 +1,8 @@
 body {
-	background-image: url('../img/rsz_mountains.jpg');
+	/*background-image: url('../img/rsz_mountains.jpg');*/
+    background-image: url('../img/cookie.png');
 	background-size: cover;
+    background-position: 50% 80%;
 	background-repeat: no-repeat;
 	overflow-y: hidden;
 	overflow-x: hidden;
@@ -31,7 +33,7 @@ body {
 	padding: 4px 25px;
 	border-radius: 3px;
 	width: 180px;
-	background-color: #2ecc96;
+	background-color: #3289C7;
 	box-shadow: 2px 2px 16px #333;
 }
 
@@ -127,7 +129,7 @@ body {
 }
 
 .modal-body input:focus {
-    border-color: #2ecc96;
+    border-color: #3289C7;
 }
 
 .modal-body a {
@@ -173,7 +175,7 @@ body {
 #signup-submit-form {
 	border: none;
 	border-radius: 2px;
-	background-color: #2ecc96;
+	background-color: #3289C7;
 }
 
 #login-modal-done, #login-modal-fail,

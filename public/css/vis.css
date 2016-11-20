@@ -67,7 +67,7 @@ html, body {
 }
 
 .email {
-	color: #2ecc96;
+	color: #3289c7;
 }
 
 
@@ -128,12 +128,12 @@ html, body {
 	margin-top: 75px;
 	margin-left: 75px;
 	margin-right: 25px;
-	background-color: #2ecc96;
+	background-color: #3289c7;
 	height: 500px;
 }
 
 .top-wrapper {
-	background-color: #2ecc96;
+	background-color: #3289c7;
 	height: 300px;
 }
 
@@ -168,4 +168,30 @@ html, body {
 	top: -150px;
 	left: 7.5vw;
 	box-shadow: 3px 3px 14px #333;
+}
+
+#chord-diagram {
+	width: 52vw;
+	height: 52vw;
+	background-color: white;
+	z-index: 100;
+	margin: auto;
+	position: relative;
+	top: -100px;
+	left: 7.5vw;
+	box-shadow: 3px 3px 14px #333;
+	margin-bottom: 11px;
+}
+
+#bar-svg {
+	width: 32vw;
+	height: 52vw;
+	background-color: white;
+	z-index: 100;
+	margin: auto;
+	position: relative;
+	top: -100px;
+	right: -11.3vw;
+	box-shadow: 3px 3px 14px #333;
+	margin-bottom: 11px;
 }
