@@ -19,4 +19,8 @@ router.get('/2fa', function(req, res, next) {
   res.sendFile(path.join(__dirname, '..', 'views', '2fa.html'));
 });
 
+router.get('/test', function(req, res, next) {
+  res.sendFile(path.join(__dirname, '..', 'views', 'test.html'));
+});
+
 module.exports = router;

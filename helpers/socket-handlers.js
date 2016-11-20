@@ -28,10 +28,10 @@ io.on('connection', function(socket) {
   });
 
   socket.on('push to mobile', function(userid) {
-    socket.emit('push to mobile');
+    io.emit('push to mobile');
   });
 
   socket.on('push to web', function() {
-    socket.emit('push to web');
+    io.emit('push to web');
   });
 });
